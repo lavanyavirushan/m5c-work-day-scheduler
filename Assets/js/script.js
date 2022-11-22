@@ -21,3 +21,18 @@ $(function () {
   //
   // TODO: Add code to display the current date in the header of the page.
 });
+
+// set current date
+
+const today = dayjs().format('dddd, MMMM, D');
+$('#currentDay').text(today);
+
+const currentTime = dayjs().format('hh:mm:ss a');
+console.log(currentTime);
+
+// when save button clicked save textarea content into local storage 
+
+// passed time show in grey 
+// present time in red
+// future time in green 
+
