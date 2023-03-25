@@ -20,19 +20,74 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
+  const saveBtns = document.querySelectorAll(".saveBtn");
+  const eventDescription = document.querySelectorAll(".description"); 
+  const timeBlocks = document.querySelectorAll(".time-block");
+
+  // set current date
+  let today = dayjs().format('dddd, MMMM, D');
+  const d = new Date();
+  let hour = d.getHours();
+  $('#currentDay').text(today);
+
+
+
+  // when save button clicked save textarea content into local storage 
+  function saveCalenderEvent(time, description){
+    let daysEvent = {};
+    daysEvent[time] = {
+      time: time,
+      desc: description
+    }
+
+    let calEvent = JSON.parse(localStorage.getItem("events"));
+
+    if(calEvent == null){
+      calEvent = daysEvent;
+    }else{
+      calEvent[time] = {
+        time: time,
+        desc: description
+      }
+    } 
+
+    localStorage.setItem("events", JSON.stringify(calEvent));
+
+  }
+
+
+
+  function printEvents (){
+    let calEvent = JSON.parse(localStorage.getItem("events"));
+    // console.log(calEvent)
+
+    eventDescription.forEach((description, key)=> {
+      if(hour == key+9){
+        description.style.background = "Red"
+      }
+
+      if(hour > key+9){
+        description.style.background = "Gray"
+      }
+
+      if(hour < key+9){
+        description.style.background = "Green"
+      }
+
+      if(calEvent[key+9] != undefined ){
+        description.value = calEvent[key+9].desc; 
+      }
+    });
+  }
+
+
+
+  saveBtns.forEach((saveBtn, index)=> {
+  
+    saveBtn.addEventListener("click", function(){
+      saveCalenderEvent(9+index, this.parentElement.getElementsByTagName("textarea")[0].value)
+    });
+  })
+
+  printEvents();
 });
-
-// set current date
-
-const today = dayjs().format('dddd, MMMM, D');
-$('#currentDay').text(today);
-
-const currentTime = dayjs().format('hh:mm:ss a');
-console.log(currentTime);
-
-// when save button clicked save textarea content into local storage 
-
-// passed time show in grey 
-// present time in red
-// future time in green 
-
