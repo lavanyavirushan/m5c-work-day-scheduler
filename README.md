@@ -40,3 +40,7 @@ The following animation demonstrates the application functionality:
 ## Usage
 
 To be able to organize your work day by store the days event within a time which can be saved in local storage for easy access.
+
+## License
+
+Check github repo for license information.
